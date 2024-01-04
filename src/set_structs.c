@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_structs.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jborner <jborner@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yubi42 <yubi42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 11:17:20 by yubi42            #+#    #+#             */
-/*   Updated: 2023/12/12 14:33:44 by jborner          ###   ########.fr       */
+/*   Updated: 2023/12/16 16:14:39 by yubi42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,9 +67,9 @@ void	create_new_philo(t_data data, t_philo **new_philo, int i)
 		return ;
 	(*new_philo)->id = i;
 	if ((*new_philo)->id % 2 == 0)
-		(*new_philo)->start_delay = 0;
+		(*new_philo)->start_delay = 1000;
 	else
-		(*new_philo)->start_delay = 500;
+		(*new_philo)->start_delay = 0;
 	(*new_philo)->dead = 0;
 	if (pthread_mutex_init(&((*new_philo)->dead_mutex), NULL) != 0)
 		return ;

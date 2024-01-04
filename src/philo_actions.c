@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_actions.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jborner <jborner@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yubi42 <yubi42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 11:03:22 by yubi42            #+#    #+#             */
-/*   Updated: 2023/12/12 14:33:04 by jborner          ###   ########.fr       */
+/*   Updated: 2023/12/16 16:13:13 by yubi42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,6 @@ void	*philo_actions(void *args)
 		if (check_any_philo_dead(philo))
 			return (NULL);
 		printf("%lld %ld is thinking\n", timestamp_ms(), philo->id);
-		usleep(1000);
+		usleep(100);
 	}
 }

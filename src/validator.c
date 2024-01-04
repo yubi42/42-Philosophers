@@ -47,7 +47,7 @@ int	edge_cases(t_data data, t_philo *philo)
 	if (data.count == 1)
 	{
 		printf("%lld 1 has taken a fork\n", timestamp_ms());
-		usleep(philo->data.sleeping_time);
+		usleep(philo->data.death_timer * 1000);
 		printf("%lld 1 died\n", timestamp_ms());
 		clean_up(&data, &philo, data.count);
 		return (1);

@@ -3,15 +3,15 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jborner <jborner@student.42.fr>            +#+  +:+       +#+         #
+#    By: yubi42 <yubi42@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/26 16:51:26 by yubi42            #+#    #+#              #
-#    Updated: 2023/12/12 13:08:42 by jborner          ###   ########.fr        #
+#    Updated: 2023/11/20 20:39:10 by yubi42           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC		= cc
-CFLAGS	= -Wall -Werror -Wextra -g #-lpthread #-fsanitize=thread
+CFLAGS	= -Wall -Werror -Wextra -g -lpthread -fsanitize=thread
 NAME	= philo
 
 SRC_PATH = src/
