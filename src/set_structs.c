@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_structs.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yubi42 <yubi42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jborner <jborner@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 11:17:20 by yubi42            #+#    #+#             */
-/*   Updated: 2023/12/16 16:14:39 by yubi42           ###   ########.fr       */
+/*   Updated: 2024/01/05 15:54:53 by jborner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ int	set_forks(t_data *data)
 int	set_data(t_data *data, int ac, char **av)
 {
 	data->count = ft_atol(av[1]);
+	if (data->count == 0)
+		return (2);
 	data->death_timer = ft_atol(av[2]);
 	data->eating_time = ft_atol(av[3]) * 1000;
 	data->sleeping_time = ft_atol(av[4]) * 1000;
@@ -51,13 +53,14 @@ int	set_data(t_data *data, int ac, char **av)
 	data->threads = NULL;
 	data->threads = malloc(sizeof(pthread_t) * data->count);
 	if (!data->threads)
-		return (0);
+		return (1);
 	if (!set_forks(data))
 	{
 		free(data->threads);
-		return (0);
+		return (1);
 	}
-	return (1);
+	data->start_ts = timestamp_ms(NULL);
+	return (0);
 }
 
 void	create_new_philo(t_data data, t_philo **new_philo, int i)
@@ -67,13 +70,13 @@ void	create_new_philo(t_data data, t_philo **new_philo, int i)
 		return ;
 	(*new_philo)->id = i;
 	if ((*new_philo)->id % 2 == 0)
-		(*new_philo)->start_delay = 1000;
-	else
 		(*new_philo)->start_delay = 0;
+	else
+		(*new_philo)->start_delay = 500;
 	(*new_philo)->dead = 0;
 	if (pthread_mutex_init(&((*new_philo)->dead_mutex), NULL) != 0)
 		return ;
-	(*new_philo)->last_eaten = timestamp_ms();
+	(*new_philo)->last_eaten = timestamp_ms(NULL);
 	if (pthread_mutex_init(&((*new_philo)->last_eaten_mutex), NULL) != 0)
 		return ;
 	(*new_philo)->must_eat = data.must_eat;

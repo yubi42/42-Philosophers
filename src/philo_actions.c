@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_actions.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yubi42 <yubi42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jborner <jborner@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 11:03:22 by yubi42            #+#    #+#             */
-/*   Updated: 2023/12/16 16:13:13 by yubi42           ###   ########.fr       */
+/*   Updated: 2024/01/05 16:06:03 by jborner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	just_eaten_ts(t_philo *philo)
 {
 	pthread_mutex_lock(&(philo->last_eaten_mutex));
-	philo->last_eaten = timestamp_ms();
+	philo->last_eaten = timestamp_ms(philo);
 	pthread_mutex_unlock(&(philo->last_eaten_mutex));
 }
 
@@ -50,13 +50,13 @@ void	*philo_actions(void *args)
 
 	philo = (t_philo *)args;
 	just_eaten_ts(philo);
-	printf("%lld %ld is thinking\n", timestamp_ms(), philo->id);
+	printf("%lld %ld is thinking\n", timestamp_ms(philo), philo->id);
 	usleep(philo->start_delay);
 	while (1)
 	{
 		if (!pick_up_forks(philo))
 			return (NULL);
-		printf("%lld %ld is eating\n", timestamp_ms(), philo->id);
+		printf("%lld %ld is eating\n", timestamp_ms(philo), philo->id);
 		just_eaten_ts(philo);
 		usleep(philo->data.eating_time);
 		pthread_mutex_unlock(&(philo->data.forks[philo->id - 1]));
@@ -64,11 +64,11 @@ void	*philo_actions(void *args)
 				% philo->data.count]));
 		if (check_any_philo_dead(philo) || check_done_eating(philo))
 			return (NULL);
-		printf("%lld %ld is sleeping\n", timestamp_ms(), philo->id);
+		printf("%lld %ld is sleeping\n", timestamp_ms(philo), philo->id);
 		usleep(philo->data.sleeping_time);
 		if (check_any_philo_dead(philo))
 			return (NULL);
-		printf("%lld %ld is thinking\n", timestamp_ms(), philo->id);
-		usleep(100);
+		printf("%lld %ld is thinking\n", timestamp_ms(philo), philo->id);
+		usleep(200);
 	}
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_actions_forks.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yubi42 <yubi42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jborner <jborner@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 13:07:17 by yubi42            #+#    #+#             */
-/*   Updated: 2023/11/10 11:02:42 by yubi42           ###   ########.fr       */
+/*   Updated: 2024/01/05 15:53:21 by jborner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	pick_up_forks_r_l(t_philo *philo, t_data *data)
 		return (0);
 	}
 	data->has_fork[philo->id - 1] = philo->id;
-	printf("%lld %ld has taken a fork\n", timestamp_ms(), philo->id);
+	printf("%lld %ld has taken a fork\n", timestamp_ms(philo), philo->id);
 	pthread_mutex_lock(&(philo->data.forks[philo->id % philo->data.count]));
 	if (check_any_philo_dead(philo))
 	{
@@ -31,7 +31,7 @@ int	pick_up_forks_r_l(t_philo *philo, t_data *data)
 		return (0);
 	}
 	data->has_fork[philo->id % philo->data.count] = philo->id;
-	printf("%lld %ld has taken a fork\n", timestamp_ms(), philo->id);
+	printf("%lld %ld has taken a fork\n", timestamp_ms(philo), philo->id);
 	return (1);
 }
 
@@ -45,7 +45,7 @@ int	pick_up_forks_l_r(t_philo *philo, t_data *data)
 		return (0);
 	}
 	data->has_fork[philo->id % philo->data.count] = philo->id;
-	printf("%lld %ld has taken a fork\n", timestamp_ms(), philo->id);
+	printf("%lld %ld has taken a fork\n", timestamp_ms(philo), philo->id);
 	pthread_mutex_lock(&(philo->data.forks[philo->id - 1]));
 	if (check_any_philo_dead(philo))
 	{
@@ -55,7 +55,7 @@ int	pick_up_forks_l_r(t_philo *philo, t_data *data)
 		return (0);
 	}
 	data->has_fork[philo->id - 1] = philo->id;
-	printf("%lld %ld has taken a fork\n", timestamp_ms(), philo->id);
+	printf("%lld %ld has taken a fork\n", timestamp_ms(philo), philo->id);
 	return (1);
 }
 

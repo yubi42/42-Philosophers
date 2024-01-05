@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yubi42 <yubi42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jborner <jborner@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 14:16:04 by yubi42            #+#    #+#             */
-/*   Updated: 2023/11/20 20:40:06 by yubi42           ###   ########.fr       */
+/*   Updated: 2024/01/05 16:00:20 by jborner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 typedef struct s_data
 {
 	long			count;
+	long			start_ts;
 	long			death_timer;
 	long			eating_time;
 	long			sleeping_time;
@@ -81,12 +82,13 @@ int					set_philos(t_philo **first_philo, t_data data);
 // utils.c
 
 long				ft_atol(char *str);
-long long			timestamp_ms(void);
+long long			timestamp_ms(t_philo *philo);
 size_t				ft_strlen(const char *s);
 
 // validator.c
 
 int					input_invalid(int ac, char **av);
 int					edge_cases(t_data data, t_philo *philo);
+int					error(int ac, char **av, t_data *data, t_philo **philo);
 
 #endif

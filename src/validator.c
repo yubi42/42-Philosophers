@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   validator.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yubi42 <yubi42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jborner <jborner@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 11:32:06 by yubi42            #+#    #+#             */
-/*   Updated: 2023/11/20 20:45:47 by yubi42           ###   ########.fr       */
+/*   Updated: 2024/01/05 16:00:03 by jborner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,38 @@ int	edge_cases(t_data data, t_philo *philo)
 	}
 	if (data.count == 1)
 	{
-		printf("%lld 1 has taken a fork\n", timestamp_ms());
+		printf("%lld 1 has taken a fork\n", timestamp_ms(philo));
 		usleep(philo->data.death_timer * 1000);
-		printf("%lld 1 died\n", timestamp_ms());
+		printf("%lld 1 died\n", timestamp_ms(philo));
 		clean_up(&data, &philo, data.count);
+		return (1);
+	}
+	return (0);
+}
+
+int	error(int ac, char **av, t_data *data, t_philo **philo)
+{
+	int	errno;
+
+	if (ac != 5 && ac != 6)
+	{
+		write(2, "Error: Not the right amount of input\n", 37);
+		return (1);
+	}
+	if (input_invalid(ac, av))
+		return (1);
+	errno = set_data(data, ac, av);
+	if (errno)
+	{
+		if (errno == 1)
+			write(2, "Error: Unable to allocate memory\n", 32);
+		else
+			write(2, "Error: Input at least 1 philosopher\n", 36);
+		return (1);
+	}
+	if (!set_philos(philo, *data))
+	{
+		write(2, "Error: Unable to allocate memory\n", 32);
 		return (1);
 	}
 	return (0);

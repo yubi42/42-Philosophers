@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   monitoring.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yubi42 <yubi42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jborner <jborner@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 10:58:13 by yubi42            #+#    #+#             */
-/*   Updated: 2023/11/10 11:01:36 by yubi42           ###   ########.fr       */
+/*   Updated: 2024/01/05 15:53:21 by jborner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,13 @@
 int	check_dead(t_philo *philo)
 {
 	pthread_mutex_lock(&(philo->last_eaten_mutex));
-	if ((timestamp_ms() - philo->last_eaten) >= philo->data.death_timer)
+	if ((timestamp_ms(philo) - philo->last_eaten) >= philo->data.death_timer)
 	{
 		pthread_mutex_unlock(&(philo->last_eaten_mutex));
 		pthread_mutex_lock(&(philo->dead_mutex));
 		philo->dead = 1;
 		pthread_mutex_unlock(&(philo->dead_mutex));
-		printf("%lld %ld died\n", timestamp_ms(), philo->id);
+		printf("%lld %ld died\n", timestamp_ms(philo), philo->id);
 		return (1);
 	}
 	pthread_mutex_unlock(&(philo->last_eaten_mutex));
