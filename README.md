@@ -26,7 +26,7 @@ Philosophers is a **42 School project** that explores the **dining philosophers 
 ### Build
 ```sh
 # Clone the repository
-git clone https://github.com/YOUR_GITHUB_USERNAME/philosophers.git
+git clone https://github.com/yubi42/philosophers.git
 cd philosophers
 
 # Compile the program
